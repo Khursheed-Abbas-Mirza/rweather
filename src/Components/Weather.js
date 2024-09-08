@@ -42,9 +42,9 @@ const Weather = (props) => {
         setLoading(false)
 
     }
-    // useEffect(() => {
-    //     fetchdata()
-    // },[])
+    useEffect(() => {
+        fetchdata()
+    },[])
 
     return (
         <>
