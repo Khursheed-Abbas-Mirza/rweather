@@ -1,4 +1,4 @@
-// import React, { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Atmosphere from './Atmosphere'
 import Wind from './Wind'
 import Humidity from './Humidity'
