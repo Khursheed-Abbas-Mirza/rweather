@@ -17,7 +17,7 @@ const Weather = (props) => {
         const options = {
             method: 'GET',
             headers: {
-                'x-rapidapi-key': 'c143ccd07fmsh9deb85360cdb8cdp1e378fjsnb04ce379f25e',
+                'x-rapidapi-key': 'bf732bf652msh979ca580b6d5902p1ddd33jsnf86a51063cde',
                 'x-rapidapi-host': 'yahoo-weather5.p.rapidapi.com'
             }
         };
@@ -43,6 +43,7 @@ const Weather = (props) => {
 
     }
     useEffect(() => {
+
         fetchdata()
     },[])
 
