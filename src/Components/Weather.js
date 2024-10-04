@@ -10,6 +10,7 @@ const Weather = (props) => {
     const [weather, setWeather] = useState({}) 
     const [Loading, setLoading] = useState(false)
     const fetchdata = async () => {
+        
         props.setprogressbar(30)
        let city=document.getElementById('city').value
        city=city===null||city.length===0?"Machilipatnam":city
@@ -17,7 +18,7 @@ const Weather = (props) => {
         const options = {
             method: 'GET',
             headers: {
-                'x-rapidapi-key': 'bf732bf652msh979ca580b6d5902p1ddd33jsnf86a51063cde',
+                'x-rapidapi-key': '1892dc50a8msh43ea35a6db838dcp11b4dcjsne03324674b83',
                 'x-rapidapi-host': 'yahoo-weather5.p.rapidapi.com'
             }
         };
@@ -43,7 +44,6 @@ const Weather = (props) => {
 
     }
     useEffect(() => {
-
         fetchdata()
     },[])
 
