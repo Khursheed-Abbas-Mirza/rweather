@@ -1,58 +1,27 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Atmosphere from './Atmosphere'
 import Wind from './Wind'
 import Humidity from './Humidity'
 import Forecast from './Forecast'
-import { useState } from 'react'
+import { useSelector ,useDispatch} from 'react-redux';
+import { fetchWeather } from '../Store/weather'
 
-// import Forecast from './Forecast'
-const Weather = (props) => {
-    const [weather, setWeather] = useState({}) 
-    const [Loading, setLoading] = useState(false)
-    const fetchdata = async () => {
-        
-        props.setprogressbar(30)
-       let city=document.getElementById('city').value
-       city=city===null||city.length===0?"Machilipatnam":city
-        const url = `https://yahoo-weather5.p.rapidapi.com/weather?location=${city}&format=json&u=f`;
-        const options = {
-            method: 'GET',
-            headers: {
-                'x-rapidapi-key': '1892dc50a8msh43ea35a6db838dcp11b4dcjsne03324674b83',
-                'x-rapidapi-host': 'yahoo-weather5.p.rapidapi.com'
-            }
-        };
-        props.setprogressbar(45)
-        try {
-            setLoading(true)
-            const response = await fetch(url, options);
-            props.setprogressbar(65)
-            const result = await response.json();
-            if(result.message==='Internal Server Error'){
-                alert("We cannot Find Your City better to contact us to add your city")
-                return ""
-            }
-            else{
-                props.setprogressbar(80)
-                setWeather(result)
-            }
-        } catch (error) {
-            console.error(error);
-        }
-        props.setprogressbar(100)
-        setLoading(false)
+const Weather = () => {
+    const dispatch=useDispatch();
+    const weather=useSelector(state=>state.weather.current)
+    const fetchdata = (event) => {
+        event.preventDefault()
+        let city=document.getElementById('city').value
+       dispatch(fetchWeather(city))
 
     }
-    useEffect(() => {
-        fetchdata()
-    },[])
-
+  
     return (
         <>
             <div className='searchbar mt-5 '>
                 <form className="d-flex" role="search">
                     <input className="form-control mx-2 " type="search" placeholder="Enter  Your City" aria-label="Search" id='city' name='city' required />
-                    <button className="btn btn-outline-info mx-2" onClick={fetchdata} disabled={Loading} id ="fetchdata-button">Search</button>
+                    <button className="btn btn-outline-info mx-2" onClick={fetchdata} id ="fetchdata-button">Search</button>
                 </form>
             </div>
             {Object.keys(weather).length > 0 && <div className='container my-5'>
