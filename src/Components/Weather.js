@@ -1,21 +1,42 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Atmosphere from './Atmosphere'
 import Wind from './Wind'
 import Humidity from './Humidity'
 import Forecast from './Forecast'
-import { useSelector ,useDispatch} from 'react-redux';
-import { fetchWeather } from '../Store/weather'
-
-const Weather = () => {
-    const dispatch=useDispatch();
-    const weather=useSelector(state=>state.weather.current)
+import { useContext } from 'react'
+import  WeatherContext  from '../Context/Weather/WeatherContext'
+const Weather = (props) => {
+    
+    const context=useContext(WeatherContext);
+    const weather=context.weatherdata
+    const status=context.progress
     const fetchdata = (event) => {
         event.preventDefault()
+        props.setprogress(25)
         let city=document.getElementById('city').value
-       dispatch(fetchWeather(city))
-
+        context.fetchWeather(city)
+        props.setprogress(45)
     }
-  
+  useEffect(() => {
+      props.setprogress(30)
+      context.fetchWeather('machilipatnam')
+  },[])
+  useEffect(()=>{
+    if(status==="failed"){
+    
+      props.setprogress(0)
+    }
+    else if(status==="loading"){
+      props.setprogress(50)
+    }
+    else if(status==="succeeded"){
+    
+      setTimeout(() => {
+        props.setprogress(100)
+      },1000)
+      props.setprogress(0)
+    }
+  },[status])
     return (
         <>
             <div className='searchbar mt-5 '>
@@ -24,6 +45,7 @@ const Weather = () => {
                     <button className="btn btn-outline-info mx-2" onClick={fetchdata} id ="fetchdata-button">Search</button>
                 </form>
             </div>
+            
             {Object.keys(weather).length > 0 && <div className='container my-5'>
                 <div className="mymain ">
                     <div className='row  '>

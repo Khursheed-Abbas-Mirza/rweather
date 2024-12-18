@@ -1,33 +1,9 @@
-import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-export const fetchWeather=createAsyncThunk(
-    'weather/fetchWeather',async(location)=>{
-        try {
-            const url = `https://yahoo-weather5.p.rapidapi.com/weather?location=${location}&format=json&u=f`;
-            const options = {
-                method: 'GET',
-                headers: {
-                    'x-rapidapi-key': 'c143ccd07fmsh9deb85360cdb8cdp1e378fjsnb04ce379f25e',
-                    'x-rapidapi-host': 'yahoo-weather5.p.rapidapi.com'
-                }
-            };
+import WeatherContext from "./WeatherContext";
+import { useState } from "react";
 
-            const response = await fetch(url, options);
-            const result = await response.json();
-
-            return result;
-            
-        } catch (error) {
-            console.error(error);
-            
-        }
-       
-    }
-)
-
-const weatherSlice=createSlice({
-    name:'weather',
-    initialState:{
-        current:{
+const WeatherState = (props) => {
+    const [weatherdata,setweatherdata] = useState({
+        
             "location": {
                 "city": "Machilipatnam",
                 "woeid": 2295246,
@@ -148,41 +124,35 @@ const weatherSlice=createSlice({
                     "code": 30
                 }
             ]
-        },
-        status:'idle',
-        error:null, 
-    },
-    reducers:{},
-    extraReducers:(builder)=>{
-        builder.addCase(fetchWeather.pending,(state)=>{
-            state.status='loading';
-        })
-        .addCase(fetchWeather.fulfilled,(state,action)=>{
-            state.status = 'succeeded';
-        // Update state with API response
-        state.current = {
-          location: {
-            city: action.payload.location.city,
-            woeid: action.payload.location.woeid,
-            country: action.payload.location.country,
-            lat: action.payload.location.lat,
-            long: action.payload.location.long,
-            timezone_id: action.payload.location.timezone_id,
-          },
-          current_observation: {
-            pubDate: action.payload.current_observation.pubDate,
-            wind: action.payload.current_observation.wind,
-            atmosphere: action.payload.current_observation.atmosphere,
-            astronomy: action.payload.current_observation.astronomy,
-            condition: action.payload.current_observation.condition,
-          },
-          forecasts: action.payload.forecasts,
+        
+    });
+    const [progress,setprogress]=useState("fail")
+    const fetchWeather = async(city) => {
+        const url = `https://yahoo-weather5.p.rapidapi.com/weather?location=${city}&format=json&u=f`;
+        setprogress("progress")
+        
+        const options = {
+            method: 'GET',
+            headers: {
+                'x-rapidapi-key': 'c143ccd07fmsh9deb85360cdb8cdp1e378fjsnb04ce379f25e',
+                'x-rapidapi-host': 'yahoo-weather5.p.rapidapi.com'
+            }
         };
-        })
-        .addCase(fetchWeather.rejected,(state,action)=>{
-            state.status='failed';
-            state.error=action.error.message
-        })
+
+        
+        const response = await fetch(url, options);
+        const result = await response.json();
+        setprogress("succeeded")
+        console.log(result);
+        setweatherdata(result);
+    
+        
     }
-})
-export default weatherSlice.reducer
+    return (
+        <WeatherContext.Provider value={{ weatherdata, fetchWeather ,progress}}>
+            {props.children}
+        </WeatherContext.Provider>
+    );
+};
+
+export default WeatherState;
