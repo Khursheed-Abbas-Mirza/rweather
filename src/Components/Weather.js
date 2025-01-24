@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useContext } from 'react'
 import Atmosphere from './Atmosphere'
 import Wind from './Wind'
-import Humidity from './Humidity'
-import Forecast from './Forecast'
-import { useContext } from 'react'
-import  WeatherContext  from '../Context/Weather/WeatherContext'
+import Humidity from './Humidity';
+import Forecast from './Forecast';
+import WeatherContext from '../Context/Weather/WeatherContext';
 const Weather = (props) => {
     
     const context=useContext(WeatherContext);
     const weather=context.weatherdata
-    const status=context.progress
+    
     const fetchdata = (event) => {
         event.preventDefault()
         props.setprogress(25)
@@ -17,26 +16,6 @@ const Weather = (props) => {
         context.fetchWeather(city)
         props.setprogress(45)
     }
-  useEffect(() => {
-      props.setprogress(30)
-      context.fetchWeather('machilipatnam')
-  },[])
-  useEffect(()=>{
-    if(status==="failed"){
-    
-      props.setprogress(0)
-    }
-    else if(status==="loading"){
-      props.setprogress(50)
-    }
-    else if(status==="succeeded"){
-    
-      setTimeout(() => {
-        props.setprogress(100)
-      },1000)
-      props.setprogress(0)
-    }
-  },[status])
     return (
         <>
             <div className='searchbar mt-5 '>

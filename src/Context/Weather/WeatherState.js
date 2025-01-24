@@ -126,27 +126,36 @@ const WeatherState = (props) => {
             ]
         
     });
-    const [progress,setprogress]=useState("fail")
+    const [progress,setprogress]=useState("failed")
     const fetchWeather = async(city) => {
+        city=city.length===0?"Machilipatnam":city.trim()
         const url = `https://yahoo-weather5.p.rapidapi.com/weather?location=${city}&format=json&u=f`;
         setprogress("progress")
         
         const options = {
             method: 'GET',
             headers: {
-                'x-rapidapi-key': 'c143ccd07fmsh9deb85360cdb8cdp1e378fjsnb04ce379f25e',
+                'x-rapidapi-key': 'bf732bf652msh979ca580b6d5902p1ddd33jsnf86a51063cde',
                 'x-rapidapi-host': 'yahoo-weather5.p.rapidapi.com'
             }
-        };
 
+        };
+        try {
+            
+            const response = await fetch(url, options);
+            if(response.status===500 || response.status===404){
+                setprogress("succeeded")
+                alert("City Not Found Plz Enter Correct City Name If not Found Plz Contact Us " )
+                return
+            }
+            const result = await response.json();
+            setprogress("succeeded")
+            setweatherdata(result);
+        } catch (error) {
+            console.log(error)
+        }
         
-        const response = await fetch(url, options);
-        const result = await response.json();
-        setprogress("succeeded")
-        console.log(result);
-        setweatherdata(result);
     
-        
     }
     return (
         <WeatherContext.Provider value={{ weatherdata, fetchWeather ,progress}}>

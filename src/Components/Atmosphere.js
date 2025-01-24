@@ -33,7 +33,8 @@ const Atmosphere = (props) => {
         "Mostly Sunny":"https://th.bing.com/th/id/OIP.5m5079EvRPE5xguDoJjR0gHaEK?w=976&h=549&rs=1&pid=ImgDetMain",
         "Partly Sunny":"https://images.pexels.com/photos/92875/pexels-photo-92875.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
         "Clear":"https://th.bing.com/th/id/OIP.GXvPpMmvVNeQa1ZadhbqZwHaEK?rs=1&pid=ImgDetMain",
-        "Scattered Showers":"https://www.vmcdn.ca/f/files/via/images/weather/rain-umbrella-vancouver-weather.jpg;w=960"
+        "Scattered Showers":"https://www.vmcdn.ca/f/files/via/images/weather/rain-umbrella-vancouver-weather.jpg;w=960",
+        "Fair":'https://thumbs.dreamstime.com/b/small-clouds-blue-sky-cloudscape-day-time-small-clouds-blue-sky-cloudscape-day-time-223764594.jpg'
       };
       
       
