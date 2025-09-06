@@ -5,7 +5,7 @@ const Humidity = (props) => {
   return (
     <div className='my-3'>
         <h4 className='text-center'><u>Humidity</u> <img src={humdityicon} alt='...' /></h4>
-      <div className="card mx-4 " style={{width: "20rem"}}>
+      <div className="card mx-4 " >
                 <img src="https://images.yourstory.com/production/document_image/mystoryimage/eivgfalq-hot.jpg?w=1152&fm=auto&ar=2:1&mode=crop&crop=faces" className="card-img-top" alt="..."  height={"224px"} width={"318px"}/>
                 <div className="card-body">
                     <ul style={{listStyleType:"none"}}>

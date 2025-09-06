@@ -5,7 +5,7 @@ const Wind = (props) => {
   return (
     <div className='my-3'>
         <h4 className='text-center'><i className="fa-solid fa-wind"></i><u>Wind</u></h4>
-      <div className="card mx-4" style={{width: "20rem"}}>
+      <div className="card mx-4" >
                 <img src="https://thumbs.dreamstime.com/b/decorative-wind-turbine-garden-countryside-france-220136830.jpg" className="card-img-top" alt="..." height={"224px"} width={"318px"} />
                 <div className="card-body">
                     <ul style={{listStyleType:"none"}}>

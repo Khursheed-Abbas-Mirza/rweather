@@ -27,14 +27,14 @@ const Weather = (props) => {
             
             {Object.keys(weather).length > 0 && <div className='container my-5'>
                 <div className="mymain ">
-                    <div className='row  '>
-                        <div className='col-md-4 '>
+                    <div className='row g-2 '>
+                        <div className='col-12 col-sm-8 mx-auto col-md-6 col-xl-4'>
                             <Atmosphere current_observation={weather.current_observation.condition} location={weather.location} mint={weather.forecasts[0].low} maxt={weather.forecasts[0].high} climate={weather.current_observation.condition.text} />
                         </div>
-                        <div className='col-md-4'>
+                        <div className='col-12 col-sm-8 mx-auto col-md-6 col-xl-4'>
                             <Wind windtoday={weather.current_observation.wind} timezone_id={weather.location.timezone_id} />
                         </div>
-                        <div className='col-md-4 '>
+                        <div className='col-12 col-sm-8 mx-auto col-md-6 col-xl-4'>
                             <Humidity humtoday={weather.current_observation.atmosphere} sunrise={weather.current_observation.astronomy.sunrise} sunset={weather.current_observation.astronomy.sunset} />
                         </div>
                     </div>

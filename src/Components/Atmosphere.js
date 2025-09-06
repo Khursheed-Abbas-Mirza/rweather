@@ -42,11 +42,11 @@ const Atmosphere = (props) => {
     return (
         <div className='my-3'>
             <h4 className='text-center'><u>Atmosphere</u><i className="fa-solid fa-cloud-sun-rain" style={{color: "#dc0be0"}}></i></h4>
-            <div className="card mx-4" style={{width: "20rem"}}>
+            <div className="card mx-4 pe-1" >
                 <img src={climateImages[`${props.climate}`]} className="card-img-top" alt="..." height={"224px"} width={"318px"}/>
                 <div className="card-body">
                     <ul style={{listStyleType:"none"}}>
-                    <li><b>Country/City:</b>{location.country}/{location.city}</li>
+                    <li><b>City:</b>{location.city}</li>
                     <li><b>Weather:</b>{condition.text}</li>
                     <li><b>Temparature:</b>{condition.temperature}&ordm;F</li>
                     <li><b>Min/Max:</b>{props.mint}/{props.maxt}&ordm;F</li>
